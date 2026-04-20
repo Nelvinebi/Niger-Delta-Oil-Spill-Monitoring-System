@@ -10,7 +10,7 @@
 ![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Proof%20of%20Concept-blue?style=for-the-badge)
 
-> A physics-informed **deep learning pipeline** that detects oil spills from **Synthetic Aperture Radar (SAR)** imagery using a **54-layer U-Net** with attention gates, **Monte Carlo Dropout uncertainty quantification**, and a **FastAPI deployment layer** — achieving **94.38% pixel-wise validation accuracy** on synthetic Sentinel-1 data simulated with Bragg scattering physics and oil-damping models.
+> A physics-informed **deep learning pipeline** that detects oil spills from **Synthetic Aperture Radar (SAR)** imagery using a **54-layer U-Net** with attention gates, **Monte Carlo Dropout uncertainty quantification**, and a **FastAPI deployment layer** achieving **94.38% pixel-wise validation accuracy** on synthetic Sentinel-1 data simulated with Bragg scattering physics and oil-damping models.
 
 </div>
 
@@ -18,11 +18,11 @@
 
 ## 📌 Problem
 
-The Niger Delta — home to over 30 million people and one of the world's most biodiverse wetland ecosystems — has experienced contamination equivalent to more than **13 million barrels of crude oil** since the 1950s. Mangrove forests are declining at an estimated **5,644 hectares per year**, with cascading impacts on fisheries, livelihoods, and water security.
+The Niger Delta home to over 30 million people and one of the world's most biodiverse wetland ecosystems has experienced contamination equivalent to more than **13 million barrels of crude oil** since the 1950s. Mangrove forests are declining at an estimated **5,644 hectares per year**, with cascading impacts on fisheries, livelihoods, and water security.
 
-Conventional oil spill monitoring depends on expensive field surveys and passive optical satellite observation — both of which are blocked by the near-constant cloud cover over the Niger Delta, and both of which detect spills **days or weeks after occurrence**. There is an urgent need for an automated, all-weather, near-real-time detection system that can penetrate cloud cover, produce confidence-scored alerts, and integrate directly with regulatory reporting workflows.
+Conventional oil spill monitoring depends on expensive field surveys and passive optical satellite observation both of which are blocked by the near-constant cloud cover over the Niger Delta, and both of which detect spills **days or weeks after occurrence**. There is an urgent need for an automated, all-weather, near-real-time detection system that can penetrate cloud cover, produce confidence-scored alerts, and integrate directly with regulatory reporting workflows.
 
-NDOSMS addresses this by applying **Synthetic Aperture Radar (SAR)** — which operates through clouds, rain, and darkness — combined with a deep learning segmentation model that produces pixel-level spill masks and uncertainty maps from each satellite pass.
+NDOSMS addresses this by applying **Synthetic Aperture Radar (SAR)** which operates through clouds, rain, and darkness combined with a deep learning segmentation model that produces pixel-level spill masks and uncertainty maps from each satellite pass.
 
 ---
 
@@ -39,7 +39,7 @@ NDOSMS addresses this by applying **Synthetic Aperture Radar (SAR)** — which o
 
 ## 🗂️ SAR Data & Simulation Parameters
 
-All training data is synthetic, generated via a physics-based simulator. No real SAR data is used in the current version — see [Real-World Integration](#️-real-world-integration) for the transition roadmap.
+All training data is synthetic, generated via a physics-based simulator. No real SAR data is used in the current version see [Real-World Integration](#️-real-world-integration) for the transition roadmap.
 
 ### Synthetic SAR Generation Parameters
 
@@ -77,15 +77,15 @@ All training data is synthetic, generated via a physics-based simulator. No real
 ## 🛠️ Tools & Technologies
 
 - **Language:** Python 3.9+
-- **Deep Learning:** TensorFlow / Keras — 54-layer U-Net with attention gates, skip connections, BatchNorm, Dropout
+- **Deep Learning:** TensorFlow / Keras 54-layer U-Net with attention gates, skip connections, BatchNorm, Dropout
 - **Uncertainty Quantification:** Monte Carlo Dropout (5–30 forward passes at inference) with Expected Calibration Error (ECE) monitoring
-- **SAR Simulation:** Custom `RealisticSARSimulator` class — physics-based Bragg scattering, Pierson-Moskowitz spectrum, oil-damping model
+- **SAR Simulation:** Custom `RealisticSARSimulator` class physics-based Bragg scattering, Pierson-Moskowitz spectrum, oil-damping model
 - **Geospatial I/O:** Rasterio (GeoTIFF read/write), Shapely, EPSG:4326 reprojection
 - **API Layer:** FastAPI with async inference endpoint, Gunicorn + Uvicorn production server
 - **Containerisation:** Docker multi-stage build (builder + production image), docker-compose orchestration
 - **Preprocessing:** Speckle filtering, radiometric calibration simulation, incidence angle normalisation
 - **Visualisation:** Matplotlib, Seaborn (training curves, weather comparison, triptych panels)
-- **Testing:** pytest — automated segmentation metric validation (IoU, F1, false alarm rate)
+- **Testing:** pytest automated segmentation metric validation (IoU, F1, false alarm rate)
 - **MLOps (Planned):** MLflow experiment tracking, GitHub Actions CI/CD, drift detection
 
 ---
@@ -93,10 +93,10 @@ All training data is synthetic, generated via a physics-based simulator. No real
 ## ⚙️ Methodology / Pipeline Workflow
 
 1. **Physics-Based Data Generation:** `RealisticSARSimulator` generates ocean backscatter using the Pierson-Moskowitz wave spectrum with Bragg scattering modulation. Oil spills are injected as elliptical regions with thickness-modulated damping (`damping = 0.3 + 0.7 × thickness_factor × edge_factor`) and realistic edge diffusion
-2. **Noise Injection:** Full sensor noise stack applied — multiplicative Rayleigh speckle, additive Gaussian thermal noise, and quantisation noise — to match real Sentinel-1 GRD statistics
+2. **Noise Injection:** Full sensor noise stack applied multiplicative Rayleigh speckle, additive Gaussian thermal noise, and quantisation noise to match real Sentinel-1 GRD statistics
 3. **Confidence Map Generation:** Per-pixel uncertainty is pre-computed during simulation from oil thickness and wind speed parameters, providing physics-grounded ground-truth confidence scores for model calibration
 4. **Data Serialisation:** Each scenario saved as four files: SAR image GeoTIFF, binary mask GeoTIFF, confidence map GeoTIFF, and metadata JSON (weather condition, thickness, wind speed, incidence angle, noise level)
-5. **Train/Validation Split:** Stratified 80/20 split; StandardScaler fitted on training data only — no data leakage
+5. **Train/Validation Split:** Stratified 80/20 split; StandardScaler fitted on training data only no data leakage
 6. **U-Net Training:** 54-layer encoder-decoder with skip connections, attention gates, BatchNorm, and Dropout. EarlyStopping monitored on validation accuracy; ReduceLROnPlateau for learning rate scheduling. Trained to convergence in 11 epochs
 7. **Monte Carlo Inference:** At prediction time, Dropout layers remain active across N forward passes (default: 10). Mean prediction = spill probability map; variance across passes = epistemic uncertainty map
 8. **Post-Processing:** Probability maps thresholded at 0.75 to produce binary masks; vectorised to GeoJSON/Shapefile; uncertainty raster exported as companion layer
@@ -107,11 +107,11 @@ All training data is synthetic, generated via a physics-based simulator. No real
 
 ## 📊 Key Features
 
-- ✅ **All-Weather Detection:** SAR operates through cloud cover, rain, and darkness — optical satellites cannot
+- ✅ **All-Weather Detection:** SAR operates through cloud cover, rain, and darkness optical satellites cannot
 - ✅ **Physics-Based Simulation:** Bragg scattering + Pierson-Moskowitz spectrum + oil-damping model produces realistic synthetic SAR, not random noise
-- ✅ **Per-Pixel Uncertainty:** Monte Carlo Dropout delivers epistemic uncertainty maps alongside binary masks — low-confidence detections are flagged for manual review rather than silently passed through
+- ✅ **Per-Pixel Uncertainty:** Monte Carlo Dropout delivers epistemic uncertainty maps alongside binary masks low-confidence detections are flagged for manual review rather than silently passed through
 - ✅ **Attention-Gated U-Net:** Attention mechanism suppresses false positives from SAR look-alikes (biogenic slicks, low-wind areas, vessel wakes)
-- ✅ **Production API:** FastAPI endpoint with async inference, health check, and GeoJSON response — ready for webhook integration
+- ✅ **Production API:** FastAPI endpoint with async inference, health check, and GeoJSON response ready for webhook integration
 - ✅ **Docker-Native:** Multi-stage production Dockerfile with Gunicorn/Uvicorn; scales horizontally via docker-compose
 - ✅ **GIS-Ready Output:** GeoTIFF + GeoJSON outputs with EPSG:4326 georeference, compatible with all major GIS platforms
 - ✅ **Transition-Ready Architecture:** Synthetic pre-training pipeline designed for drop-in replacement with real Sentinel-1 GRD data from Copernicus Data Space
@@ -124,7 +124,7 @@ Charts are generated interactively within [`notebooks/01_generate_synthetic_data
 
 ---
 
-### 🔹 Synthetic SAR Image — Physics-Based Ocean Backscatter
+### 🔹 Synthetic SAR Image (Physics-Based Ocean Backscatter)
 
 > Physics-based ocean backscatter simulation using Bragg scattering and Pierson-Moskowitz spectrum. Oil spills appear as dark regions due to capillary wave damping. Speckle noise, thermal noise, and quantisation noise applied to match real Sentinel-1 statistics.
 
@@ -132,7 +132,7 @@ Charts are generated interactively within [`notebooks/01_generate_synthetic_data
 
 ---
 
-### 🔹 Ground Truth Mask — Binary Oil Spill Labels
+### 🔹 Ground Truth Mask (Binary Oil Spill Labels)
 
 > Binary segmentation mask co-registered with the SAR image. Oil pixels (1) shown in red; water pixels (0) in black. Elliptical spill shape with physics-based edge diffusion — thicker oil produces sharper, more uniform boundaries.
 
@@ -140,7 +140,7 @@ Charts are generated interactively within [`notebooks/01_generate_synthetic_data
 
 ---
 
-### 🔹 Confidence Map — Physics-Derived Uncertainty
+### 🔹 Confidence Map (Physics-Derived Uncertainty)
 
 > Per-pixel uncertainty pre-computed from oil thickness and wind speed at simulation time. Thin spills in rough sea states produce low-confidence regions (dark), while thick spills in calm conditions produce high-confidence detections (bright). Used for model calibration validation.
 
@@ -148,7 +148,7 @@ Charts are generated interactively within [`notebooks/01_generate_synthetic_data
 
 ---
 
-### 🔹 Weather Comparison — Detection Under 4 Sea States
+### 🔹 Weather Comparison (Detection Under 4 Sea States)
 
 > Side-by-side SAR simulation across calm, moderate, rough, and storm conditions. As wind speed increases, sea roughness raises the noise floor and compresses the contrast between oil and water — demonstrating why storm-condition detections require uncertainty flagging.
 
@@ -156,7 +156,7 @@ Charts are generated interactively within [`notebooks/01_generate_synthetic_data
 
 ---
 
-### 🔹 Training Curves — U-Net Convergence
+### 🔹 Training Curves (U-Net Convergence)
 
 > Accuracy and loss curves across 11 training epochs. EarlyStopping halts training when validation accuracy plateaus; ReduceLROnPlateau lowers the learning rate on loss stagnation. Convergence is stable with no significant overfitting — expected given the controlled synthetic data distribution.
 
@@ -164,7 +164,7 @@ Charts are generated interactively within [`notebooks/01_generate_synthetic_data
 
 ---
 
-### 🔹 Prediction Output — Oil Probability Map
+### 🔹 Prediction Output (Oil Probability Map)
 
 > Raw U-Net output: per-pixel oil probability (0–1). Pixels above the 0.75 threshold are classified as oil spill. Lower-probability edge pixels are captured as uncertain and reflected in the companion confidence map rather than discarded.
 
@@ -172,7 +172,7 @@ Charts are generated interactively within [`notebooks/01_generate_synthetic_data
 
 ---
 
-### 🔹 System Architecture — End-to-End Pipeline
+### 🔹 System Architecture (End-to-End Pipeline)
 
 > Full NDOSMS pipeline from data ingestion through inference to GIS export and API alerting. Shows the two parallel output streams: binary spill mask (for reporting) and uncertainty raster (for analyst review).
 
@@ -276,7 +276,7 @@ Niger Delta Oil Spill Monitoring System/
 pip install -r requirements.txt
 ```
 
-### Full Pipeline (Notebook — Recommended)
+### Full Pipeline (Notebook Recommended)
 
 ```bash
 # 1. Clone the repository
@@ -360,10 +360,10 @@ python-multipart>=0.0.6
 |---------|-------------|----------|
 | `TypeError: Affine * float` in data generation | Outdated rasterio transform syntax | Apply monkey-patch fix or update `save_scenario()` to use `Affine.scale()` |
 | Model prediction hangs > 5 minutes | CPU inference on 512×512 tile | Interrupt, reduce MC passes to 5, or resize input to 256×256 |
-| `safe_mode=False` warning on model load | Lambda layers in normalisation | Expected — load with `safe_mode=False, compile=False` |
+| `safe_mode=False` warning on model load | Lambda layers in normalisation | Expected load with `safe_mode=False, compile=False` |
 | Kernel dies during training | RAM exhausted on large batch | Reduce `batch_size` to 1; restart Jupyter kernel |
 | Model output name mismatch errors | Deep supervision naming conflict in U-Net++ | Use simplified single-output U-Net (current default) |
-| Low confidence on thin spills (< 0.5mm) | Physics-based design behaviour | Expected — flagged for manual review per system design |
+| Low confidence on thin spills (< 0.5mm) | Physics-based design behaviour | Expected flagged for manual review per system design |
 | `oneDNN` log spam in TensorFlow | TensorFlow verbose default | Set `TF_ENABLE_ONEDNN_OPTS=0` in environment |
 
 ---
@@ -395,20 +395,20 @@ python-multipart>=0.0.6
 
 ### Regulatory Alignment
 
-- **NOSDRA reporting standards** — Automated report generation in development
-- **IMO MARPOL Annex I** — International Maritime Organization oil spill response protocols
-- **ISO 19115** — Geospatial metadata compliance for all GeoTIFF outputs
+- **NOSDRA reporting standards:** Automated report generation in development
+- **IMO MARPOL Annex I:** International Maritime Organization oil spill response protocols
+- **ISO 19115:** Geospatial metadata compliance for all GeoTIFF outputs
 
 ---
 
 ## ⚠️ Limitations & Future Work
 
 **Current Limitations:**
-- Trained on **synthetic data only** — real Sentinel-1 validation against NOSDRA incident reports is in progress
-- **Small training set (100 scenes)** — LSTM-scale generalisation requires 10,000+ scenes for production reliability
-- **CPU inference latency (~3s/tile)** — GPU deployment required for near-real-time processing at continental scale
-- **Binary classification only** — current model predicts oil/water; oil thickness estimation (0.1–10mm range) is a separate model not yet integrated
-- **Single incidence angle** — simulator defaults to 23°; multi-angle robustness not yet validated
+- Trained on **synthetic data only:** real Sentinel-1 validation against NOSDRA incident reports is in progress
+- **Small training set (100 scenes):** LSTM-scale generalisation requires 10,000+ scenes for production reliability
+- **CPU inference latency (~3s/tile):** GPU deployment required for near-real-time processing at continental scale
+- **Binary classification only:** current model predicts oil/water; oil thickness estimation (0.1–10mm range) is a separate model not yet integrated
+- **Single incidence angle:** simulator defaults to 23°; multi-angle robustness not yet validated
 
 **Roadmap:**
 
@@ -440,7 +440,7 @@ python-multipart>=0.0.6
 
 ## 📄 License
 
-This project is licensed under the **MIT License** — free to use, adapt, and build upon for research, education, environmental monitoring, and governmental applications. See the [LICENSE](LICENSE) file for full details.
+This project is licensed under the **MIT License** free to use, adapt, and build upon for research, education, environmental monitoring, and governmental applications. See the [LICENSE](LICENSE) file for full details.
 
 ---
 

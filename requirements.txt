@@ -1,26 +1,24 @@
-# Geospatial — wheels compatible with Streamlit Cloud
-rasterio==1.3.10
-fiona==1.9.6
-shapely==2.0.6
-pyproj==3.7.1
+# Geospatial
+rasterio>=1.5.0
+shapely>=2.0.6
+pyproj>=3.7.0
 
 # API
-fastapi==0.104.1
-uvicorn[standard]==0.24.0
-python-multipart==0.0.6
-pydantic==2.5.0
+fastapi>=0.104.1
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6
+pydantic>=2.5.0
 
 # Data Processing
-numpy==1.26.4
-scipy==1.13.1
-scikit-learn==1.4.2
-pillow==10.4.0
+numpy>=1.24.3
+scipy>=1.11.4
+scikit-learn>=1.3.2
+pillow>=10.1.0
 
 # Testing
-pytest==7.4.3
-pytest-asyncio==0.21.1
-httpx==0.25.2
+pytest>=7.4.3
+pytest-asyncio>=0.21.1
+httpx>=0.25.2
 
 # Utilities
-python-json-logger==2.0.7
-setuptools>=70.0.0
+python-json-logger>=2.0.7

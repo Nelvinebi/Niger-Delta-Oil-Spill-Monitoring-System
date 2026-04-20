@@ -1,0 +1,54 @@
+{
+  "timestamp": "2026-04-17T22:07:11.843604",
+  "image_size": [
+    512,
+    512
+  ],
+  "sensor_params": {
+    "wavelength_m": 0.055,
+    "incidence_angle_deg": 23.0,
+    "resolution_m": 10.0
+  },
+  "environmental_conditions": {
+    "weather": "moderate",
+    "wind_speed_ms": 5.0,
+    "wind_direction_deg": 0.0,
+    "wave_height_m": 2.0
+  },
+  "oil_properties": {
+    "viscosity_cst": 414.4746354198095,
+    "thickness_mm": 4.875939467167995,
+    "age_hours": 40.73635795843381
+  },
+  "spills": [
+    {
+      "center": {
+        "y": 244,
+        "x": 184
+      },
+      "radius_pixels": 35,
+      "estimated_area_m2": 384845.10006474965
+    },
+    {
+      "center": {
+        "y": 307,
+        "x": 289
+      },
+      "radius_pixels": 46,
+      "estimated_area_m2": 664761.0054996002
+    },
+    {
+      "center": {
+        "y": 258,
+        "x": 175
+      },
+      "radius_pixels": 79,
+      "estimated_area_m2": 1960667.97510539
+    }
+  ],
+  "statistics": {
+    "oil_area_pixels": 26318,
+    "oil_coverage_percent": 10.039520263671875,
+    "total_area_m2": 26214400.0
+  }
+}

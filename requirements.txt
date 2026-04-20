@@ -1,6 +1,9 @@
 # Core App
 streamlit>=1.40.0
 
+# Visualization
+matplotlib>=3.8.0
+
 # Geospatial
 rasterio>=1.5.0
 shapely>=2.0.6

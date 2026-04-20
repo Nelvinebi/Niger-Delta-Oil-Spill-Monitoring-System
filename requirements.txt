@@ -1,29 +1,25 @@
-# Deep Learning
-# tensorflow=2.15.0  # Keep removed unless you need it
-# keras=2.15.0
-
 # Geospatial
-rasterio=1.3.8
-fiona=1.9.5
-shapely=2.0.2
-pyproj=3.6.1
+rasterio==1.3.8
+fiona==1.9.5
+shapely==2.0.2
+pyproj==3.6.1
 
 # API
-fastapi=0.104.1
-uvicorn[standard]=0.24.0
-python-multipart=0.0.6
-pydantic=2.5.0
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+pydantic==2.5.0
 
 # Data Processing
-numpy=1.24.3
-scipy=1.11.4
-scikit-learn=1.3.2
-pillow=10.1.0
+numpy==1.24.3
+scipy==1.11.4
+scikit-learn==1.3.2
+pillow==10.1.0
 
 # Testing
-pytest=7.4.3
-pytest-asyncio=0.21.1
-httpx=0.25.2
+pytest==7.4.3
+pytest-asyncio==0.21.1
+httpx==0.25.2
 
 # Utilities
-python-json-logger=2.0.7
+python-json-logger==2.0.7

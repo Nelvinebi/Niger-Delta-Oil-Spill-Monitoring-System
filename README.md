@@ -134,7 +134,7 @@ Charts are generated interactively within [`notebooks/01_generate_synthetic_data
 
 ### 🔹 Ground Truth Mask (Binary Oil Spill Labels)
 
-> Binary segmentation mask co-registered with the SAR image. Oil pixels (1) shown in red; water pixels (0) in black. Elliptical spill shape with physics-based edge diffusion — thicker oil produces sharper, more uniform boundaries.
+> Binary segmentation mask co-registered with the SAR image. Oil pixels (1) shown in red; water pixels (0) in black. Elliptical spill shape with physics-based edge diffusion thicker oil produces sharper, more uniform boundaries.
 
 ![Ground Truth Mask](assets/charts/02_ground_truth.png)
 
@@ -150,7 +150,7 @@ Charts are generated interactively within [`notebooks/01_generate_synthetic_data
 
 ### 🔹 Weather Comparison (Detection Under 4 Sea States)
 
-> Side-by-side SAR simulation across calm, moderate, rough, and storm conditions. As wind speed increases, sea roughness raises the noise floor and compresses the contrast between oil and water — demonstrating why storm-condition detections require uncertainty flagging.
+> Side-by-side SAR simulation across calm, moderate, rough, and storm conditions. As wind speed increases, sea roughness raises the noise floor and compresses the contrast between oil and water demonstrating why storm-condition detections require uncertainty flagging.
 
 ![Weather Comparison](assets/charts/04_weather_comparison.png)
 
@@ -389,9 +389,9 @@ python-multipart>=0.0.6
 |--------|-----------|--------|--------|
 | [Copernicus Data Space](https://dataspace.copernicus.eu) | Sentinel-1 SAR (GRD, SLC) | Free registration | Ready for integration |
 | [Google Earth Engine](https://earthengine.google.com) | Pre-processed Sentinel-1 GRD | Free for research/education | Ready for integration |
-| [NOSDRA](https://nosdra.gov.ng/incident-report/) | Nigerian oil spill incident reports | Public | Ground truth alignment — pending |
-| [NOAA NESDIS](https://polar.ncep.noaa.gov) | Thermal anomalies (active spills) | Public | Cross-validation — pending |
-| [SkyTruth](https://skytruth.org) | Satellite-detected spill archive | Public | Benchmark comparison — pending |
+| [NOSDRA](https://nosdra.gov.ng/incident-report/) | Nigerian oil spill incident reports | Public | Ground truth alignment pending |
+| [NOAA NESDIS](https://polar.ncep.noaa.gov) | Thermal anomalies (active spills) | Public | Cross-validation pending |
+| [SkyTruth](https://skytruth.org) | Satellite-detected spill archive | Public | Benchmark comparison pending |
 
 ### Regulatory Alignment
 

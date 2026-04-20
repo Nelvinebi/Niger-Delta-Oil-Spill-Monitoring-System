@@ -79,7 +79,17 @@ section[data-testid="stSidebar"] .stRadio label {
 
 /* ── Hide default Streamlit chrome ── */
 footer { visibility: hidden; }
-.block-container { padding-top: 1.2rem !important; max-width: 1400px; }
+.block-container {
+    padding-top: 3.5rem !important;
+    padding-bottom: 2rem !important;
+    max-width: 1400px;
+}
+
+/* Ensure headings never clip at the top */
+h1, h2, h3, h4 {
+    margin-top: 0.6rem !important;
+    padding-top: 0.3rem !important;
+}
 
 /* ── Typography ── */
 h1, h2, h3, h4 {
